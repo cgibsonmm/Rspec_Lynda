@@ -176,4 +176,32 @@ describe 'Expectation Matchers' do
       end
     end
   end
+
+  describe 'predicate matchers' do
+
+    it 'will match be_* ti custom methods in ?' do
+      expect([]).to be_empty
+      expect(1).to be_integer
+
+      class Product
+        def visible?; true; end
+      end
+      product = Product.new
+
+      expect(product).to be_visible
+    end
+
+    it 'will match have_* to custom methods like has_*?' do
+      hash = { a: 1, b: 2 }
+      expect(hash).to have_key(:a)
+      expect(hash).to have_value(2)
+
+      class Customer
+        def has_pending_order?; true; end
+      end
+      customer = Customer.new
+
+      expect(customer).to have_pending_order
+    end
+  end
 end
